@@ -1,71 +1,42 @@
 <html>
-<head>
-<title>Flipper</title>
-<script src="./js/jquery.js"></script>
-<script src="./js/jquery-ui.js"></script>
-<!--<script src="../js/jsAnim.js"></script>
--->
-<script src="./js/fx.js"></script>
-<script src="./js/jquery.flip.js"></script>
+	<head>
+		<title>Flipper</title>
+		<script src="./js/jquery.js"></script>
+		<script src="./js/jquerytools.js"></script>
+		<link rel="stylesheet" type="text/css" href="./css/common.css" />
+		<!--<script src="jsquery-ui.js"></script>
+		<script src="../js/jsAnim.js"></script>
+		<script src="../js/fx.js"></script>
+		-->
+		<script src="./js/jquery.flip.min.js"></script>
+		<script src="./js/ui.js"></script>
+		<script src="./js/new.js"></script>
 
-<script>
-
-function listing(){ 
-	$('#flip').animate(
-	{
-		height: '400'
-	}
-	, '500', 'swing');
-	}
-function lol(x)
-{
-$("<ul style='list-style-type:none' id='list1' ></ul>").appendTo(x);
-for(i=0;i<5;i++)
-{
-	$hiddun = $("<li>"+String(i)+"</li>").css({ 'background-color' : '#FF00FF'});
-	$hiddun.hide().delay(i*100+100).appendTo('#list1').effect("slide","slow");
-}
-}
-
-function moveToCenter(x)
-{
-	$(x).animate({'top':'300','left':'300'},'1000',flipo(x));
-	//$fx(x).fxAdd({type: 'top', to: 250, step: 1, delay: 20}).fxRun();
-	//$fx(x).fxAdd({type: 'left', to: 250, step: 1, delay: 20}).fxRun(flipo(x));
-}
-
-function flipo(x)
-{
-		$(x).flip({
-			content: 'Scanf()',
-			color: '#00FF00',
-			direction: 'lr',
-			//onAnimation: listing($('#flip'))
-			onEnd: 	function(){ $('#flip').animate({ 
-			'height' : '300', 'width': '300'//,'left': '20%', 'top': '20%'
-			}	
-			,'1000','linear');
-			lol(x);
-			}
-			});
-}
-
-$(document).ready(function() {
-	$('#flip').click( function() {
-		//alert("LOL");
-		moveToCenter(this);
-		//$('#flip').animate({'top':'300','left':'300'});
-		//listing();
-		});
-		});
-</script>
-</head>
-<body>
-
-
-	<div id="flip" style="background-color:#ff0000;width:200px;height:200px;position:absolute;top:100px;left:100">
-	<!-- <img src="img/test2.png"/> -->
-	<h4> printf("Hello World"); </h4> 
-	</div>
-</body>
+	</head>
+	<body>	
+			<div id="mask"> </div>	
+		<div id="boxes">	<!-- will have all boxes-->
+			<div class="content" id="1">
+				<p> Formula 1 </p>
+			</div>
+			<div class="content" id="2">
+				<p> Hockey </p>
+			</div>
+			<br />
+			<br />
+			<br />
+			<div class="content" id="3">
+				<p> Swimming </p>
+			</div>
+			<div class="content" id="4">
+				<p> LOL </p>
+			</div>
+			<div id="dialog" class="window">
+			</div>
+		</div>
+		<br />
+		<br />
+		<br />
+		<div class="revert"> Revert </div>
+	</body>
 </html>

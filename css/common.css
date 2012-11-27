@@ -1,0 +1,35 @@
+.content{
+	height:250px;
+	width:250px;
+	background:gray;
+	display: inline-block;
+	padding:20px;
+}
+#mask {
+	position:absolute;
+	z-index:9000;
+	background-color:#000;
+	display:none;
+}
+#boxes .window {
+	position:fixed;
+	width:440px;
+	height:200px;
+	display:none;
+	background-color:#FFFFFF;
+	z-index:9999;
+	padding:20px;
+    }
+#boxes{
+	text-align:center;
+	padding-top:20px;
+}
+.window .close{
+	    background-image:url('../img/close.png');
+	    position:absolute;
+	    right:-15px;
+	    top:-15px;
+	    cursor:pointer;
+	    height:35px;
+	    width:35px;
+}
