@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>Flipper</title>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<!--<script src="../js/jsAnim.js"></script>
+-->
+<script src="../js/fx.js"></script>
+<script src="../js/jquery.flip.js"></script>
+
+<script>
+
+function listing(){ 
+	$('#flip').animate(
+	{
+		height: '400'
+	}
+	, '500', 'swing');
+	}
+function lol()
+{
+$("<ul style='list-style-type:none' id='list1' ></ul>").appendTo('#flip');
+for(i=0;i<5;i++)
+{
+	$hiddun = $("<li>"+String(i)+"</li>").css({ 'background-color' : '#FF00FF'});
+	$hiddun.hide().delay(i*100+100).appendTo('#list1').effect("slide","slow");
+}
+}
+
+function moveToCenter()
+{
+	//$('#flip').animate({'top':'300','left':'300'});
+}
+
+$(document).ready(function() {
+	$('#flip').click( function() {
+		//alert("LOL");
+		moveToCenter();
+		$(this).flip({
+			content: 'Scanf()',
+			color: '#00FF00',
+			direction: 'lr',
+			//onAnimation: listing($('#flip'))
+			onEnd: 	function(){ $('#flip').animate({ 
+			'height' : '400', 'width': '300'//,'left': '20%', 'top': '20%'
+			}	
+
+			,'500','swing');
+
+			lol();
+			}
+			//listing($(this))
+			})
+		//listing();
+		});
+		});
+</script>
+</head>
+<body>
+
+
+	<div id="flip" style="background-color:#ff0000;width:200px;height:200px;position:absolute;top:100px;left:100">
+	<!-- <img src="img/test2.png"/> -->
+	<h4> printf("Hello World"); </h4> 
+	</div>
+</body>
+</html>
