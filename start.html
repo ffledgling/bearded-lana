@@ -1,0 +1,72 @@
+<html>
+<head>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.flip.js"></script>
+<link rel="stylesheet/css" href="css/start.css" />
+</head>
+<body>
+	<div id="asd" style="position:absolute;width:200px;height:200px;background:#FF0000">
+		Pilalo
+	</div>
+<script>
+/* 	-Make everything realative
+   	+Add reverse flip and back movement on click 
+   	-add css using onAnimation method
+   	-Pass generic to onAnimation function
+   	-Add css from style sheet to new after-flip element
+*/
+$(document).ready(function () {
+	  console.log("Document is ready!");
+	  
+	  $("#asd").bind('click',function(){
+	  if (!$("#asd").data('flipped'))
+	  {
+	 /*Debug purposes*/ console.log("Entered True case");
+	 console.log($("#asd").data('flipped'));
+	 $("#asd").data('flipped',true);
+	 console.log($("#asd").data('flipped'));
+	  $("#asd").animate({
+		"left": "200px",
+		"top": "200px"
+	  },2000).animate({"width":"500px"},3000);
+
+	/*Queuing actually allows previous animations to run, skips those animations without it, don't know why*/
+	$("#asd").queue( function() {
+	  $(this).flip({direction: 'lr',
+		onAnimation: function() {$("#asd").text("new Shizola maaaaaaannnnnnn!").toggleClass("bigBlack",1000,"easeOutSine");}
+		/* ^^^This makes content change look seemless*/
+		});
+	  $(this).dequeue();
+	  $(this).clearQueue(); //Don't know if required
+	 });
+	 }
+	 else
+	 {
+	 $("#asd").data('flipped',false);
+	 /*Debug purposes*/ console.log("Entered False case");
+	 	/*Queuing actually allows previous animations to run, skips those animations without it, don't know why*/
+	$("#asd").queue( function() {
+	  $(this).revertFlip(//{direction: 'lr',
+		//onAnimation: function() {$("#asd").text("new Shizola maaaaaaannnnnnn!");}}
+		/* ^^^This makes content change look seemless*/
+		);
+	  $(this).dequeue();
+	  $(this).clearQueue(); //Don't know if required
+	 });
+	 
+	 $("#asd").animate({"width":"200px"},3000).animate({
+		"left": "0px",
+		"top": "0px"
+	  },2000);
+	
+
+
+	 	
+	 }
+
+
+});});
+</script>
+</body>
+</html>
