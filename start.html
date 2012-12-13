@@ -1,14 +1,23 @@
 <html>
 <head>
-<script src="./js/jquery.js"></script>
-<script src="./js/jquery-ui.js"></script>
-<script src="./js/jquery.flip.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/jquery-ui.js"></script>
+<script src="../js/jquery.flip.js"></script>
 <link rel="stylesheet/css" href="css/start.css" />
 </head>
 <body>
-	<div id="asd" style="position:absolute;width:200px;height:200px;background:#FF0000">
-		Pilalo
-	</div>
+		<div id="1" class="flipper" style="position:absolute;top:15%;left:30%; width:200px;height:200px;background:#00ff00">
+		One
+		</div>
+		<div id="2" class="flipper" style="position:absolute;top:15%;left:50%;width:200px;height:200px;background:#0000ff">
+		Two
+		</div>
+		<div id="3" class="flipper" style="position:absolute;top:55%;left:30%;width:200px;height:200px;background:#FF00ff">
+		Three
+		</div>
+		<div id="4" class="flipper" style="position:absolute;top:55%;left:50%;width:200px;height:200px;background:#FFff00">
+		Four
+		</div>
 <script>
 /* 	-Make everything realative
    	+Add reverse flip and back movement on click 
@@ -18,23 +27,50 @@
 */
 $(document).ready(function () {
 	  console.log("Document is ready!");
+		console.log($(document).width() + ' ' + $(document).height());
 	  
-	  $("#asd").bind('click',function(){
-	  if (!$("#asd").data('flipped'))
+	  $('<div/>', {
+	  	id : 'overlay',
+		style : 'z-index:3;background:#000;opacity:0.7;width:100%;height:100%'
+	  }).hide().appendTo('body');
+
+
+	  $(".flipper").bind('click',function(){
+	  
+	  elem = $(this);
+
+	  centerLeft = $(document).width()/2 - parseInt(elem.css('width'))/2;
+	  centerTop = $(document).height()/2 - parseInt(elem.css('height'))/2;
+
+	  console.log(centerLeft + '*' + centerTop) ;
+
+	  if (!elem.data('flipped'))
 	  {
-	 /*Debug purposes*/ console.log("Entered True case");
-	 console.log($("#asd").data('flipped'));
-	 $("#asd").data('flipped',true);
-	 console.log($("#asd").data('flipped'));
-	  $("#asd").animate({
-		"left": "200px",
-		"top": "200px"
-	  },2000).animate({"width":"500px"},3000);
+	  
+	  elem.data('prevTop',elem.css('top'));
+	  elem.data('prevLeft',elem.css('left'));
+	  /*console.log(elem.css('top'));
+	  console.log(typeof(elem.css('top')));
+	  console.log("Hmm"+elem.data('prevTop'));
+	  */
+
+	 /*Debug purposes: console.log("Entered True case");
+	 console.log(elem.data('flipped'));*/
+	 elem.data('flipped',true);
+	 //console.log(elem.data('flipped'));
+	 
+	  $('#overlay').fadeIn("slow");
+
+
+	  elem.css('z-index',5).animate({
+		"left": centerLeft,//"200px",
+		"top": centerTop//"200px"
+	  },2000).animate({"width":"500px"},1000);
 
 	/*Queuing actually allows previous animations to run, skips those animations without it, don't know why*/
-	$("#asd").queue( function() {
+	elem.queue( function() {
 	  $(this).flip({direction: 'lr',
-		onAnimation: function() {$("#asd").text("new Shizola maaaaaaannnnnnn!").toggleClass("bigBlack",1000,"easeOutSine");}
+		onAnimation: function() {elem.text("new Shizola maaaaaaannnnnnn!").toggleClass("bigBlack",1000,"easeOutSine");}
 		/* ^^^This makes content change look seemless*/
 		});
 	  $(this).dequeue();
@@ -43,10 +79,11 @@ $(document).ready(function () {
 	 }
 	 else
 	 {
-	 $("#asd").data('flipped',false);
+	 elem.data('flipped',false);
 	 /*Debug purposes*/ console.log("Entered False case");
+	 		console.log('prevValues : '+typeof(elem.data('prevTop'))+' '+elem.data('prevLeft'));
 	 	/*Queuing actually allows previous animations to run, skips those animations without it, don't know why*/
-	$("#asd").queue( function() {
+	elem.queue( function() {
 	  $(this).revertFlip(//{direction: 'lr',
 		//onAnimation: function() {$("#asd").text("new Shizola maaaaaaannnnnnn!");}}
 		/* ^^^This makes content change look seemless*/
@@ -55,12 +92,25 @@ $(document).ready(function () {
 	  $(this).clearQueue(); //Don't know if required
 	 });
 	 
-	 $("#asd").animate({"width":"200px"},3000).animate({
-		"left": "0px",
-		"top": "0px"
-	  },2000);
+	 console.log('prevValues2 : '+elem.data('prevTop')+' '+elem.data('prevLeft'));
+	
+	/*
+	elem.animate({"width":"200px"},3000, function(){
+	    $(this).animate({
+	            "left": elem.data('prevLeft'),
+		            "top": elem.data('prevTop')
+			        },2000);
+		});
+	*/
 	
 
+	$('#overlay').fadeOut(4000);
+	
+	elem.animate({"width":"200px"},2000).animate({
+		"left": elem.data('prevLeft'),
+		"top": elem.data('prevTop')
+	  },2000);
+	 //elem.css('z-index',1);
 
 	 	
 	 }
